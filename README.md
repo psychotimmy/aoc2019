@@ -1,6 +1,6 @@
 # Advent of Code 2019
 
-Advent of Code 2019 in modern Fortran
+Advent of Code 2019 in Modern Fortran
 
 gfortran on RaspberryPiOS (Debian trixie)
 
@@ -8,4 +8,7 @@ Use gfortran -Wall filename.f90 -o filename to compile and link.
 
 ## Notes
 
-**Day 1** I've not used modern Fortran before, so this was a nice gentle start. Part 1 consists of a do loop and a function; part 2 extends part 1 with a nested do loop. On the Pi4B I'm using, part 1 executes in 0.006s, part 2 takes the same time suggesting that file i/o is the bulk of the work.
+**Day 1** I've not used Modern Fortran before, so this was a nice gentle start. Part 1 consists of a do loop and a function; part 2 extends part 1 with a nested do loop. On the Pi4B I'm using, part 1 executes in 0.006s, part 2 takes the same time suggesting that file i/o is the bulk of the work.
+
+**Day 2** I'm probably going to regret starting the program array at 1 rather than 0 in a later problem, but it's simple enough for today's implementation of intcode. Part 1 runs in 0.006s, part 2 in 0.014s on the Pi4B.
+
