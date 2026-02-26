@@ -1,42 +1,73 @@
-program day3p1
+program day3p2
   implicit none
-  integer   :: info,ncoords1,ncoords2,l1,l2,ip,md,manhattan,minmd
+  integer   :: info,ncoords1,ncoords2,l1,l2,ip,md,manhattan,minmd,minsteps,st1,st2,st1prior,stepsnow
   character (len=1500) :: wire1,wire2
   complex :: cwire1(750),cwire2(750),isec,origin
 
-  write(*,*)"Advent of Code 2019 day 3, part 1"
-  write(*,*)""
+  write(*,'(a)')"Advent of Code 2019 day 3, part 2"
+  write(*,'(a)')""
   open(10,file="day3in.txt")
 ! Two lines to read - one for each wire
-  read(10,'(A)',iostat=info) wire1
-  read(10,'(A)',iostat=info) wire2
+  read(10,'(a)',iostat=info) wire1
+  read(10,'(a)',iostat=info) wire2
   if (info<0) stop 8
   close(10)
 ! Split the two wires up into co-ordinates, starting from the origin (0,0)
   call gencoords(wire1,cwire1,ncoords1)
   call gencoords(wire2,cwire2,ncoords2)
-! Set the origin point and a large minimum manhattan distance
+! Set the origin point and a large minimum manhattan distance 
+! ... and a large mininum steps distance
   origin=cmplx(0,0)
-  minmd=99999999
+! Set minimum manhattan and steps distances to be huge
+  minmd=huge(1)
+  minsteps=huge(1)
 ! loop through each pair of wires to see if they intersect
+  st1=0
   do l1=1,ncoords1-1
+!   calculate the number of steps taken for the path of wire 1 so far
+    st1=st1+abs(int(real(cwire1(l1)))-int(real(cwire1(l1+1)))) &
+           +abs(int(aimag(cwire1(l1)))-int(aimag(cwire1(l1+1))))
+!   store this value 
+    st1prior=st1
+    st2=0
     do l2=1,ncoords2-1
       call getintersection(cwire1(l1),cwire1(l1+1),cwire2(l2),cwire2(l2+1),ip,isec)
+      if (ip == 0) then
+!       No interesection - reset wire 1 back to the prior position and
+!       increment wire 2's step distance
+        st1=st1prior
+        st2=st2+abs(int(real(cwire2(l2)))-int(real(cwire2(l2+1)))) &
+               +abs(int(aimag(cwire2(l2)))-int(aimag(cwire2(l2+1))))
+      else
+!       Intersection - steps on wire 1 is only as far as it
+        st1=st1-abs(int(real(isec))-int(real(cwire1(l1+1)))) &
+               -abs(int(aimag(isec))-int(aimag(cwire1(l1+1))))
+!       Calculate steps on wire 2
+        st2=st2+abs(int(real(cwire2(l2)))-int(real(isec))) &
+               +abs(int(aimag(cwire2(l2)))-int(aimag(isec)))
+!       Add together to get the result
+        stepsnow=st1+st2
+!       Ignore 0 steps as that's the origin
+        if (stepsnow > 0) then
+          if (stepsnow < minsteps) minsteps=stepsnow
+        end if
+      end if
 !     ip is set to 1 if there's an intersection point between the two wires
       if (ip == 1) then
         md=manhattan(origin,isec) 
 !       Ignore the origin as this is always an intersection!
         if (md > 0) then
           if (md < minmd) minmd=md
-          write(*,*)"intersection at ",isec," distance",md
+          write(*,'(a,2f8.0,a,i5,a,i8)')"intersection at ",isec," distance",md," steps ",stepsnow 
         end if
       end if
     end do
   end do 
   write(*,*)""
-  write(*,*)"Manhattan distance from central port to nearest intersection is",minmd
+  write(*,'(a,i5)')"Part 1: Manhattan distance from central port to nearest intersection is",minmd
+  write(*,'(a,i8)')"Part 2: Fewest combined steps to any intersection is",minsteps
 
-end program day3p1
+end program day3p2
 
 subroutine getintersection(p1,p2,p3,p4,ipoints,intersection)
   implicit none
