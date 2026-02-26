@@ -12,4 +12,4 @@ Use gfortran -Wall filename.f90 -o filename to compile and link.
 
 **Day 2** I'm probably going to regret starting the program array at 1 rather than 0 in a later problem, but it's simple enough for today's implementation of intcode. Part 1 runs in 0.006s, part 2 in 0.014s on the Pi4B.
 
-**Day 3** The code for part 1 is rather long-winded but has a decent run-time of 0.025s on the Pi4B. There's an obvious way to refactor the getintersection subroutine, but I've left it as-is for now. Part 2 to do.
+**Day 3** The code for part 1 is rather long-winded but has a decent run-time of 0.025s on the Pi4B. There's an obvious way to refactor the getintersection subroutine, but I've left it as-is for now. Part 2 is straightforward when based on part 1 and having the points/lines defined as complex numbers helps. The combined solution that part 2 produces executes in 0.03s. 
