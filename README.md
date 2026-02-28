@@ -16,4 +16,4 @@ Use gfortran -Wall filename.f90 -o filename to compile and link.
 
 **Day 4** Part 1 straightforward and executes in 0.06s, part 2 is fiddly and could definitely be solved more elegantly than the spaghetti I've produced. Also takes 0.06s.
 
-**Day 5** As predicted on day 2 I instantly regretted the design decision I'd made over not using 0 as the first index of the intcode tape array. So I solved part 1 anyway and then refactored before plunging on into part 2. The refactored part 1 here runs the air conditioning diagnostic in 0.007s. Part 2 to do.
+**Day 5** As predicted on day 2 I instantly regretted the design decision I'd made over not using 0 as the first index of the intcode tape array. So I solved part 1 anyway and then refactored before plunging on into part 2. The refactored part 1 here runs the air conditioning diagnostic in 0.007s. Part 2 took moments to implement after the refactoring from part 1 and also executes in 0.007s.
