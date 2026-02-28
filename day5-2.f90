@@ -89,7 +89,7 @@ subroutine runprogram(m,n,tape,pos,sii,result)
 
 !     less than
       case (7)
-        call getoperands(m,n,tape,currentpos,mode,operands,3)
+        call getoperands(m,n,tape,currentpos,mode,operands,2)
         if (operands(1) < operands(2)) then
           tape(tape(currentpos+3))=1
         else
@@ -99,7 +99,7 @@ subroutine runprogram(m,n,tape,pos,sii,result)
 
 !     equals
       case (8)
-        call getoperands(m,n,tape,currentpos,mode,operands,3)
+        call getoperands(m,n,tape,currentpos,mode,operands,2)
         if (operands(1) == operands(2)) then
           tape(tape(currentpos+3))=1
         else
@@ -119,7 +119,6 @@ subroutine runprogram(m,n,tape,pos,sii,result)
   end do
 
 end subroutine runprogram
-
 
 subroutine getoperands(m,n,tape,currentpos,mode,operands,numops)
   implicit none
