@@ -31,3 +31,5 @@ Use gfortran -Wall filename.f90 -o filename to compile and link.
 **Day 11** Straightforward reuse of the intcode computer from Day 9 part 2, with a little bit of robot movement for good measure. Part 1 runs in 0.14s, part 2 in 0.012s.
 
 **Day 12** Part 1 runs 1,000 cycles in 0.007s. Part 2 requires the insight that the x,y and z directions/velocities are independent and each will have different periods. The answer is the lowest common multiple of the 3 periods. Runs in 0.15s.
+
+**Day 13** Part 1 is an intcode program that takes no input. Straightforward to count the number of blocks added to the screen. Runs in 0.014s. Part 2 to do.
